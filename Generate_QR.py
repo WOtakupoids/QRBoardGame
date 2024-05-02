@@ -21,7 +21,8 @@ class QR():
             mode=0b0010
         else:
             mode=0b0100
-        
+        v_table=pd.read_csv('version_table.csv')
+        v_table[]
     def add_symbol(self):
         symbol=np.ones((7,7))
         symbol[1:6,1:6]=0
