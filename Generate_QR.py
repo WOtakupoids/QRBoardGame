@@ -2,6 +2,8 @@ from pprint import pprint
 import re
 import numpy as np
 from QR_parameter import Generate_parameter
+import pandas as pd
+import os
 class QR():
     def __init__(self,QR_parm:Generate_parameter) -> None:
         self.matrix=QR_parm.matrix
