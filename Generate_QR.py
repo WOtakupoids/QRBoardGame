@@ -4,10 +4,11 @@ import numpy as np
 from QR_parameter import Generate_parameter,QR_parameter
 import pandas as pd
 import os
+from rich import print
 class QR():
     def __init__(self,QR_parm:Generate_parameter):
         self.matrix=QR_parm.matrix
-        self.QR_list=np.zeros((self.matrix,self.matrix))
+        self.QR_list=np.full((self.matrix,self.matrix),2)
         self.pram=QR_parm
         self.QR_pram=QR_parameter()
     def generate_QR(self):
@@ -55,7 +56,6 @@ class QR():
         counter=len(self.pram.input)
         if mode==0b0001:
             counter=format(counter,'010b')
-
         elif mode==0b0010:
             counter=format(counter,'09b')
         else:
@@ -68,14 +68,29 @@ class QR():
         self.QR_list[0:7,0:7]=symbol
         self.QR_list[0:7,-7:]=symbol
         self.QR_list[-7:,0:7]=symbol
+    def add_separator_pattern(self):
+        h_pattern=np.zeros((1,8))
+        v_pattern=np.zeros((8,1))
+        #print(v_pattern)
+        #左上
+        self.QR_list[0:8,7:8]=v_pattern
+        self.QR_list[7:8,0:8]=h_pattern
+        #右上
+        self.QR_list[0:8,-8:-7]=v_pattern
+        self.QR_list[7:8,-8:]=h_pattern
+        #左下
+        self.QR_list[-8:,7:8]=v_pattern
+        self.QR_list[-8:-7,0:8]=h_pattern
     def get_tui_QR(self):
         l1=""
         for i in self.QR_list:
             for j in i:
                 if j==0:
                     l1+="  "
+                elif j==1:
+                    l1+="[green]■ [/green]"
                 else:
-                    l1+="■ "
+                    l1+="[blue]■ [/blue]"
             l1+="\n"
         return l1
 if __name__=="__main__":
@@ -85,7 +100,8 @@ if __name__=="__main__":
     Qp.versinon=1
     qr=QR(Qp)
     qr.generate_QR()
-    #qr.validate_inp()
-    #qr.add_symbol()
-    #print(qr.get_tui_QR())
+    qr.validate_inp()
+    qr.add_symbol()
+    qr.add_separator_pattern()
+    print(qr.get_tui_QR())
     #print(qr.QR_list)
