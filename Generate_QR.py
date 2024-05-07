@@ -68,6 +68,8 @@ class QR():
             counter=format(counter,cc)
         print(counter)
     def add_symbol(self):
+        """シンボル追加
+        """
         symbol=np.ones((7,7))
         symbol[1:6,1:6]=0
         symbol[2:5,2:5]=1
@@ -75,6 +77,8 @@ class QR():
         self.QR_list[0:7,-7:]=symbol
         self.QR_list[-7:,0:7]=symbol
     def add_separator_pattern(self):
+        """分離パターン追加
+        """
         v_pattern=np.zeros((8,1))
         h_pattern=np.zeros((1,8))
         #print(v_pattern)
@@ -88,6 +92,8 @@ class QR():
         self.QR_list[-8:,7:8]=v_pattern
         self.QR_list[-8:-7,0:8]=h_pattern
     def add_timing_pattern(self):
+        """タイミングパターン追加
+        """
         #縦
         self.QR_list[0::2,5:6]=1
         self.QR_list[1::2,5:6]=0

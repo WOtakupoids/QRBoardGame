@@ -19,6 +19,8 @@ def NM_encode(inp:int):
         if len(in_num)<=0:
             break
     return result
+def AL_encode():
+     
 if __name__=="__main__":
     p=NM_encode(9876)
     print(p)
