@@ -54,12 +54,18 @@ class QR():
     def __set_char_counter(self):
         mode=self.QR_pram.mode
         counter=len(self.pram.input)
+        cc_table= pd.read_csv('char_counter_table.csv')
+        cc1=cc_table[cc_table['version']==self.pram.versinon]
+        #cc='0'+strcc1
         if mode==0b0001:
-            counter=format(counter,'010b')
+            cc='0'+str(cc1['NM'][0])+'b'
+            counter=format(counter,cc)
         elif mode==0b0010:
-            counter=format(counter,'09b')
+            cc='0'+str(cc1['AL'][0])+'b'
+            counter=format(counter,cc)
         else:
-            counter=format(counter,'08b')
+            cc='0'+str(cc1['8B'][0])+'b'
+            counter=format(counter,cc)
         print(counter)
     def add_symbol(self):
         symbol=np.ones((7,7))
