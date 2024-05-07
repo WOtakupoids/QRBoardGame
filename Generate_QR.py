@@ -41,7 +41,7 @@ class QR():
             print(str(len(self.pram.input))+'/'+str(capa))
     def __set_mode(self):
         inp=self.pram.input
-        am = re.compile('[a-zA-Z0-9]+')
+        am = re.compile('[A-Z0-9]+')
         nm = re.compile('[0-9]+')
         mode:int=0b0001
         if nm.fullmatch(inp):
