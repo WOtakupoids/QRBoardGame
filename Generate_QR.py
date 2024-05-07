@@ -69,8 +69,8 @@ class QR():
         self.QR_list[0:7,-7:]=symbol
         self.QR_list[-7:,0:7]=symbol
     def add_separator_pattern(self):
-        h_pattern=np.zeros((1,8))
         v_pattern=np.zeros((8,1))
+        h_pattern=np.zeros((1,8))
         #print(v_pattern)
         #左上
         self.QR_list[0:8,7:8]=v_pattern
@@ -81,6 +81,13 @@ class QR():
         #左下
         self.QR_list[-8:,7:8]=v_pattern
         self.QR_list[-8:-7,0:8]=h_pattern
+    def add_timing_pattern(self):
+        #縦
+        self.QR_list[0::2,5:6]=1
+        self.QR_list[1::2,5:6]=0
+        #横
+        self.QR_list[5:6,0::2]=1
+        self.QR_list[5:6,1::2]=0
     def get_tui_QR(self):
         l1=""
         for i in self.QR_list:
@@ -101,6 +108,7 @@ if __name__=="__main__":
     qr=QR(Qp)
     qr.generate_QR()
     qr.validate_inp()
+    qr.add_timing_pattern()
     qr.add_symbol()
     qr.add_separator_pattern()
     print(qr.get_tui_QR())
